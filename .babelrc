@@ -1,8 +1,4 @@
 {
-    "presets": ["es2015", "stage-2"],
     "plugins": ["transform-runtime"],
-    "comments": false,
-    "ignore": [
-        "**/*.mdui.js"
-    ]
+    "presets": ["es2015", "stage-0"]
 }
