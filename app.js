@@ -53,7 +53,8 @@ schedule.scheduleJob('*/30 * * * * *', () => {
         }).then(ret => {
             db.get('bing', {
                 enddate: ret.enddate,
-                filename: ret.filename
+                filename: ret.filename,
+                mkt: mkt
             }).then(rows => {
                 if (rows.length == 0) {
                     db.set('bing', ret)
@@ -74,7 +75,8 @@ schedule.scheduleJob('*/30 * * * * *', () => {
         }).then(ret => {
             db.get('bing', {
                 enddate: ret.enddate,
-                filename: ret.filename
+                filename: ret.filename,
+                mkt: mkt
             }).then(rows => {
                 if (rows.length == 0) {
                     db.set('bing', ret)
