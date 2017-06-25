@@ -72,7 +72,7 @@ const update = (table, params, conditions) => {
     }
     let condition = []
     for (let k in conditions) {
-        condition.push(`${k}="${params[k]}"`)
+        condition.push(`${k}="${conditions[k]}"`)
     }
     if (condition.length > 0) {
         sql += ' where ' + condition.join(' and ')

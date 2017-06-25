@@ -53,16 +53,15 @@ schedule.scheduleJob('*/30 * * * * *', () => {
         }).then(ret => {
             db.get('bing', {
                 enddate: ret.enddate,
-                filename: ret.filename,
-                mkt: mkt
+                filename: ret.filename
             }).then(rows => {
                 if (rows.length == 0) {
                     db.set('bing', ret)
                 } else {
                     let images = rows[0]
-                    db.update('bing', {
-                        mkt: mkt + ',' + images['mkt']
-                    }, {
+                    images['mkt'] = mkt + ',' + images['mkt']
+                    let params = Object.assign(ret, images)
+                    db.update('bing', params, {
                         id: images.id
                     })
                 }
@@ -75,8 +74,7 @@ schedule.scheduleJob('*/30 * * * * *', () => {
         }).then(ret => {
             db.get('bing', {
                 enddate: ret.enddate,
-                filename: ret.filename,
-                mkt: mkt
+                filename: ret.filename
             }).then(rows => {
                 if (rows.length == 0) {
                     db.set('bing', ret)
@@ -93,6 +91,28 @@ schedule.scheduleJob('*/30 * * * * *', () => {
     }
     //console.log(moment().format('YYYY-MM-DD HH:mm:ss'))
 })
+
+// let mkt = BING_MARKETS[k];
+// k = k < BING_MARKETS.length - 1 ? ++k : 0
+// let config = {
+//     ids: 0,
+//     n: 1,
+//     format: 'js',
+//     mkt: mkt
+// }
+
+// console.log(config)
+// bing.fetchPicture(config).then(ret => {
+//         return bing.convert(mkt, ret)
+//     }).then(ret => {
+//         let params = Object.assign(ret, { mkt: mkt + ',' + mkt })
+//         db.update('bing', params, {
+//             id: 1
+//         })
+//     }).catch(ex => {
+//         console.log(ex)
+//     })
+
 
 
 // catch 404 and forward to error handler
