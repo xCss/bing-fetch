@@ -85,7 +85,7 @@ const convert = (mkt, analysis) => {
             "startdate": images.startdate,
             "enddate": images.enddate,
             "fullstartdate": images.fullstartdate,
-            "url": `http://www.bing.com/${images.url}`,
+            "url": `http://www.bing.com${images.url}`,
             "urlbase": images.urlbase,
             "hsh": images.hsh,
             "copyright": images.copyright,
