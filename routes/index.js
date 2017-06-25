@@ -10,20 +10,23 @@ router.get('/', function(req, res, next) {
         ids: 0,
         n: 1,
         format: 'js',
-        mkt: 'de-ch'
+        mkt: 'zh-cn'
+    }
+    if (config.mkt == 'zh-cn') {
+        let tasks = [bing.fetchPicture(config), bing.fetchStory()];
+        Promise.all(tasks).then(ret => {
+            return bing.convert('zh-cn', ret)
+        }).then(ret => {
+            res.send(ret)
+        })
+    } else {
+        bing.fetchPicture(config).then(ret => {
+            return bing.convert(config.mkt, ret)
+        }).then(ret => {
+            res.send(ret)
+        })
     }
 
-    // let tasks = [bing.fetchPicture(config), bing.fetchStory()];
-    // Promise.all(tasks).then(ret => {
-    //     return bing.convert('zh-cn', ret)
-    // }).then(ret => {
-    //     res.send(ret)
-    // })
 
-    bing.fetchPicture(config).then(ret => {
-        return bing.convert(config.mkt, ret)
-    }).then(ret => {
-        res.send(ret)
-    })
 });
 module.exports = router;
