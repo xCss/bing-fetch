@@ -59,8 +59,8 @@ schedule.scheduleJob('*/30 * * * * *', () => {
                     db.set('bing', ret)
                 } else {
                     let images = rows[0]
-                    images['mkt'] = mkt + ',' + images['mkt']
-                    let params = Object.assign(ret, images)
+                    ret['mkt'] = mkt + ',' + images['mkt']
+                    let params = Object.assign(images, ret)
                     db.update('bing', params, {
                         id: images.id
                     })
