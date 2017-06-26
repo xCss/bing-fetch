@@ -35,9 +35,9 @@ app.use('/users', users);
 var BING_MARKETS = ["zh-cn", "ar-xa", "bg-bg", "cs-cz", "da-dk", "de-at", "de-ch", "de-de", "el-gr", "en-a", "en-ca", "en-gb", "en-id", "en-ie", "en-in", "en-my", "en-nz", "en-ph", "en-sg", "en-us", "en-xa", "en-za", "es-ar", "es-cl", "es-es", "es-mx", "es-us", "es-xl", "et-ee", "fi-fi", "fr-be", "fr-ca", "fr-ch", "fr-fr", "he-il", "hr-hr", "hu-h", "it-it", "ja-jp", "ko-kr", "lt-lt", "lv-lv", "nb-no", "nl-be", "nl-nl", "pl-pl", "pt-br", "pt-pt", "ro-ro", "ru-r", "sk-sk", "sl-sl", "sv-se", "th-th", "tr-tr", "uk-ua", "zh-hk", "zh-tw"];
 let k = 0;
 /**
- * 每隔30秒检测bing数据
+ * 每隔2分钟检测bing数据
  */
-schedule.scheduleJob('*/30 * * * * *', () => {
+schedule.scheduleJob('*/2 * * * *', () => {
     let mkt = BING_MARKETS[k];
     k = k < BING_MARKETS.length - 1 ? ++k : 0
     let config = {
@@ -58,12 +58,15 @@ schedule.scheduleJob('*/30 * * * * *', () => {
                 if (rows.length == 0) {
                     db.set('bing', ret)
                 } else {
-                    let images = rows[0]
-                    let params = ret
-                    params['mkt'] = mkt + ',' + images['mkt']
-                    db.update('bing', params, {
-                        id: images.id
-                    })
+                    let images = rows[0];
+                    // 防止重复判断
+                    if (images['mkt'].indexOf(mkt) === -1) {
+                        let params = ret
+                        params['mkt'] = mkt + ',' + images['mkt']
+                        db.update('bing', params, {
+                            id: images.id
+                        })
+                    }
                 }
             })
         })
@@ -79,12 +82,15 @@ schedule.scheduleJob('*/30 * * * * *', () => {
                 if (rows.length == 0) {
                     db.set('bing', ret)
                 } else {
-                    let images = rows[0]
-                    db.update('bing', {
-                        mkt: mkt + ',' + images['mkt']
-                    }, {
-                        id: images.id
-                    })
+                    let images = rows[0];
+                    // 防止重复判断
+                    if (images['mkt'].indexOf(mkt) === -1) {
+                        db.update('bing', {
+                            mkt: mkt + ',' + images['mkt']
+                        }, {
+                            id: images.id
+                        })
+                    }
                 }
             })
         })
