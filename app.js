@@ -9,8 +9,9 @@ var moment = require('moment');
 // 定时器
 var schedule = require('node-schedule');
 
-var bing = require('./utils/bingUtils.js');
 var db = require('./utils/dbUtils.js');
+var bing = require('./utils/bingUtils.js');
+var qiniu = require('./utils/qiniuUtils.js');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -57,7 +58,15 @@ schedule.scheduleJob('*/3 * * * *', () => {
                 filename: ret.filename
             }).then(rows => {
                 if (rows.length == 0) {
-                    db.set('bing', ret)
+                    db.set('bing', ret).then(rt => {
+                        let qiniu_url = qiniu.fetchToQiniu(ret.url);
+                        db.update('bing', {
+                            qiniu_url: qiniu_rul
+                        }, {
+                            urlbase: ret.urlbase,
+                            enddate: ret.enddate
+                        })
+                    });
                 } else {
                     let images = rows[0];
                     // 防止重复判断
@@ -80,7 +89,15 @@ schedule.scheduleJob('*/3 * * * *', () => {
                 filename: ret.filename
             }).then(rows => {
                 if (rows.length == 0) {
-                    db.set('bing', ret)
+                    db.set('bing', ret).then(rt => {
+                        let qiniu_url = qiniu.fetchToQiniu(ret.url);
+                        db.update('bing', {
+                            qiniu_url: qiniu_rul
+                        }, {
+                            urlbase: ret.urlbase,
+                            enddate: ret.enddate
+                        })
+                    });
                 } else {
                     let images = rows[0];
                     // 防止重复判断
