@@ -34,7 +34,8 @@ app.use('/', index);
 app.use('/users', users);
 
 //var BING_MARKETS = ["zh-cn", "ar-xa", "bg-bg", "cs-cz", "da-dk", "de-at", "de-ch", "de-de", "el-gr", "en-a", "en-ca", "en-gb", "en-id", "en-ie", "en-in", "en-my", "en-nz", "en-ph", "en-sg", "en-us", "en-xa", "en-za", "es-ar", "es-cl", "es-es", "es-mx", "es-us", "es-xl", "et-ee", "fi-fi", "fr-be", "fr-ca", "fr-ch", "fr-fr", "he-il", "hr-hr", "hu-h", "it-it", "ja-jp", "ko-kr", "lt-lt", "lv-lv", "nb-no", "nl-be", "nl-nl", "pl-pl", "pt-br", "pt-pt", "ro-ro", "ru-r", "sk-sk", "sl-sl", "sv-se", "th-th", "tr-tr", "uk-ua", "zh-hk", "zh-tw"];
-var BING_MARKETS = ["zh-cn", "zh-tw", "zh-hk", "uk-ua", "ar-xa", "de-de", "en-au", "en-ca", "en-gb", "en-in", "en-us", "fr-ca", "fr-fr", "ja-jp", "pt-br"];
+// 
+var BING_MARKETS = ["zh-cn", "zh-tw", "zh-hk", "uk-ua", "ar-xa", "de-de", "de-ch", "en-au", "en-ca", "en-gb", "en-in", "en-us", "en-no", "fr-ca", "fr-fr", "ja-jp", "pt-br", "ru-ru"];
 let k = 0;
 /**
  * 每隔3分钟检测bing数据
