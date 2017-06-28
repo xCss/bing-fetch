@@ -62,7 +62,7 @@ schedule.scheduleJob('*/3 * * * *', () => {
                     db.set('bing', ret).then(rt => {
                         let qiniu_url = qiniu.fetchToQiniu(ret.url);
                         db.update('bing', {
-                            qiniu_url: qiniu_rul
+                            qiniu_url: qiniu_url
                         }, {
                             urlbase: ret.urlbase,
                             enddate: ret.enddate
@@ -93,7 +93,7 @@ schedule.scheduleJob('*/3 * * * *', () => {
                     db.set('bing', ret).then(rt => {
                         let qiniu_url = qiniu.fetchToQiniu(ret.url);
                         db.update('bing', {
-                            qiniu_url: qiniu_rul
+                            qiniu_url: qiniu_url
                         }, {
                             urlbase: ret.urlbase,
                             enddate: ret.enddate
