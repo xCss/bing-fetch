@@ -54,7 +54,6 @@ schedule.scheduleJob('*/3 * * * *', () => {
         Promise.all(tasks).then(ret => {
             return bing.convert(mkt, ret)
         }).then(ret => {
-            console.log(ret);
             db.get('bing', {
                 enddate: ret.enddate,
                 filename: ret.filename
