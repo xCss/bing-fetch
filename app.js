@@ -54,6 +54,7 @@ schedule.scheduleJob('*/3 * * * *', () => {
         Promise.all(tasks).then(ret => {
             return bing.convert(mkt, ret)
         }).then(ret => {
+            console.log(ret);
             db.get('bing', {
                 enddate: ret.enddate,
                 filename: ret.filename
@@ -115,27 +116,6 @@ schedule.scheduleJob('*/3 * * * *', () => {
     }
     //console.log(moment().format('YYYY-MM-DD HH:mm:ss'))
 })
-
-// let mkt = BING_MARKETS[k];
-// k = k < BING_MARKETS.length - 1 ? ++k : 0
-// let config = {
-//     ids: 0,
-//     n: 1,
-//     format: 'js',
-//     mkt: mkt
-// }
-
-// console.log(config)
-// bing.fetchPicture(config).then(ret => {
-//         return bing.convert(mkt, ret)
-//     }).then(ret => {
-//         let params = Object.assign(ret, { mkt: mkt + ',' + mkt })
-//         db.update('bing', params, {
-//             id: 1
-//         })
-//     }).catch(ex => {
-//         console.log(ex)
-//     })
 
 
 
